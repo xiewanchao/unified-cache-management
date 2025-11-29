@@ -335,6 +335,18 @@ class UnifiedCacheConnector():
         )
         return num_lookup_hits * self.block_size
 
+    def update_state_after_alloc(
+        self, request_id: str, 
+    ):
+        request_block_info = self.req_status_dict.get(request_id, None)
+        if request_block_info:
+            block_hashes = request_block_info.block_hashes
+            start_create_pos = request_block_info.dump_index
+            remaining_hashes = block_hashes[start_create_pos:]
+            if remaining_hashes:
+                create_results = self.connector.create(remaining_hashes)
+                if any(ret != 0 for ret in create_results):
+                    logger.warning(f"\ncreate_results on storage: {create_results}\n")
     def submit_dump_tasks(self, layer_id: int):
         if self.is_mla and self.tp_rank != 0:
             return

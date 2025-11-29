@@ -283,7 +283,15 @@ class TestUnifiedCacheConnector(unittest.TestCase):
         token_ids = list(range(1280))
         self.assertEqual(len(token_ids), 1280)
 
-        block_ids = self._create_block_ids(token_ids)
+        request_id = "test_request"
+        # lookup
+        storage_hit_num = connector.get_num_new_matched_tokens(
+            request_id, token_ids, 0
+        )
+
+        self.assertEqual(storage_hit_num, 0)
+        connector.update_state_after_alloc("test_request")
+        block_ids = connector.req_status_dict.get(request_id, None).block_hashes
         self.assertEqual(len(block_ids), 10)  # 保留你原来的假设
 
         # 6. 调用 dump / wait / commit，并加上关键断言
