@@ -128,7 +128,7 @@ class TestUnifiedCacheConnector(unittest.TestCase):
         )
     
     def _create_block_ids(self,token_ids: List[int]):
-        return hash_request_tokens(md5, self.block_size, token_ids)
+        return hash_request_tokens(md5, 128, token_ids)
 
         
     
