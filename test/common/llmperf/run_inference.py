@@ -6,7 +6,7 @@ from typing import Any, Dict, List
 
 import yaml
 from common.llmperf.utils.token_benchmark import run_token_benchmark
-from common.llmperf.utils.utils import reset_prefill_cache
+from common.llmperf.utils.utils import reset_prefill_cache, flush_cache
 
 
 def run_test_cases(
@@ -54,9 +54,11 @@ def run_test_cases(
     ):
         # for i, case in enumerate(mean_input_tokens):
         print(f"\n>>> Executing test case {i} <<<")
-        reset_prefill_cache(env, server_url)
+        flush_cache(env, server_url)
         # Use a fixed random_seed for each test to control PC hit_rate
         random_seed = random.randint(1, 100000)
+        random_seed_temp = random.randint(1, 100000)
+
 
         try:
             # Determine if two runs are needed (PC hit_rate test)
@@ -104,7 +106,24 @@ def run_test_cases(
                     tokenizer_path=tokenizer_path,
                     user_metadata={"case_idx": i, "phase": "prefill"},
                 )
-                reset_prefill_cache(env, server_url)
+                run_token_benchmark(
+                    llm_api=llm_api,
+                    model=model,
+                    test_timeout_s=timeout,
+                    max_num_completed_requests=max_completed,
+                    concurrent_requests=1,
+                    mean_input_tokens=2000,
+                    stddev_input_tokens=stddev_input,
+                    mean_output_tokens=2,
+                    stddev_output_tokens=stddev_output,
+                    additional_sampling_params=additional_sampling_params,
+                    results_dir=str(timestamp_dir),
+                    random_seed=random_seed_temp,
+                    openai_api_base=server_url + "/v1",
+                    tokenizer_path=tokenizer_path,
+                    user_metadata={"case_idx": i, "phase": "prefill"},
+                )
+                flush_cache(env, server_url)
                 # Then run normal mode
                 print("[INFO] Prefill completed, switching to normal mode execution")
                 summary = run_token_benchmark(

@@ -27,7 +27,7 @@
 #include "space_shard_temp_layout.h"
 #include <chrono>
 
-constexpr auto MIN_REUSE_BLOCK_AGE = 300; // 5 minutes
+constexpr auto MIN_REUSE_BLOCK_AGE = 0; // 5 minutes
 
 namespace UC {
 

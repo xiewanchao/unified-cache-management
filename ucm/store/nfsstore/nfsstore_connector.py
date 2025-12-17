@@ -86,7 +86,7 @@ class UcmNfsStore(UcmKVStoreBase):
     ) -> Task:
         dst_tensor_ptr = [t.data_ptr() for t in dst_tensor]
         dst_tensor_size = [t.numel() * t.element_size() for t in dst_tensor]
-        task_id = self.store.LoadToDevice(
+        task_id = self.store.LoadToHost(
             block_ids, offset, dst_tensor_ptr, dst_tensor_size
         )
         return NfsTask(task_id=task_id)
@@ -96,7 +96,7 @@ class UcmNfsStore(UcmKVStoreBase):
     ) -> Task:
         src_tensor_ptr = [t.data_ptr() for t in src_tensor]
         src_tensor_size = [t.numel() * t.element_size() for t in src_tensor]
-        task_id = self.store.DumpFromDevice(
+        task_id = self.store.DumpFromHost(
             block_ids, offset, src_tensor_ptr, src_tensor_size
         )
         return NfsTask(task_id=task_id)
@@ -108,7 +108,7 @@ class UcmNfsStore(UcmKVStoreBase):
         dst_addr: List[int],
         size: List[int],
     ) -> Task:
-        task_id = self.store.LoadToDevice(block_ids, offset, dst_addr, size)
+        task_id = self.store.LoadToHost(block_ids, offset, dst_addr, size)
         return NfsTask(task_id=task_id)
 
     def dump_data(
@@ -118,7 +118,7 @@ class UcmNfsStore(UcmKVStoreBase):
         src_addr: List[int],
         size: List[int],
     ) -> Task:
-        task_id = self.store.DumpFromDevice(block_ids, offset, src_addr, size)
+        task_id = self.store.DumpFromHost(block_ids, offset, src_addr, size)
         return NfsTask(task_id=task_id)
 
     def wait(self, task: Task) -> int:

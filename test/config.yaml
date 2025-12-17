@@ -9,7 +9,7 @@ reports:
 
 database:
   backup: "results/"
-  enabled: true
+  enabled: false
   host: "127.0.0.1"
   port: 3306
   name: "ucm_pytest"
@@ -20,7 +20,7 @@ database:
 # LLM Connection Configuration
 llm_connection:
   model: "qwen3"
-  server_url: "http://141.111.32.70:9382"
+  server_url: "http://127.0.0.1:30000"
   tokenizer_path: "/home/models/QwQ-32B"
   stream: true    # stream output
   ignore_eos: true    # Ignore the returned terminator
