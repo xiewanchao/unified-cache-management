@@ -348,7 +348,7 @@ def run_token_benchmark(
 
     timestamp = int(time.time() * 1000)
     if results_dir:
-        filename = f"{model}_{mean_input_tokens}_{mean_output_tokens}_{timestamp}"
+        filename = f"{model}_{mean_input_tokens}_{mean_output_tokens}_{concurrent_requests}_{timestamp}"
         filename = re.sub(r"[^\w\d-]+", "-", filename)
         filename = re.sub(r"-{2,}", "-", filename)
         summary_filename = f"{filename}_summary"
