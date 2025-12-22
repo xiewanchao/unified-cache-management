@@ -54,6 +54,7 @@ class UcmNfsStore(UcmKVStoreBase):
             param.transferIoDirect = config.get("use_direct", False)
             param.transferStreamNumber = config.get("stream_number", 32)
             param.transferBufferNumber = config.get("buffer_number", 512)
+            param.hotnessEnable = False
         # NOTE: compatible with legacy nfsstore lib
         if hasattr(param, "storage_capacity"):
             param.storageCapacity = config.get("storage_capacity", 0)

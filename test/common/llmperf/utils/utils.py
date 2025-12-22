@@ -4,6 +4,7 @@ import math
 import os
 import pathlib
 import random
+import shutil
 import subprocess
 import time
 from typing import Any, Dict, Tuple
@@ -196,3 +197,23 @@ def flush_cache(env, server_url):
             )
     except Exception as e:
         print(f"[ERROR] Exception in resetting prefix cache: {e}")
+
+def clear_hicache_storage(env, server_url):
+    try:
+        storage_backend = "/sgl-workspace/sglang_data"
+        data_dir = os.path.join(storage_backend, "data")
+        if not os.path.isdir(data_dir):
+            return True
+
+        for name in os.listdir(data_dir):
+            path = os.path.join(data_dir, name)
+            if os.path.isfile(path) or os.path.islink(path):
+                os.remove(path)
+            elif os.path.isdir(path):
+                shutil.rmtree(path)
+
+        print("Cleared all entries in UnifiedCache storage.")
+        return True
+    except Exception as e:
+        print(f"Failed to clear UnifiedCache storage: {e}")
+        return False

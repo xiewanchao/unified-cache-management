@@ -106,6 +106,7 @@ class OpenAIChatCompletionsClient:
                     )
                     if content:
                         if tokens_received != 0 and flag == False:
+                            print(f"request received first token at time {time.monotonic()}")
                             ttft = time.monotonic() - start_time
                             flag = True
                         else:

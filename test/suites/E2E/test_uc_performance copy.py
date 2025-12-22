@@ -4,42 +4,42 @@ from common.llmperf.run_inference import inference_results
 
 
 @pytest.mark.parametrize("mean_input_tokens", [[
-    4000, 8000, 16000,
-    4000, 8000, 16000,
-    4000, 8000, 16000,
-    4000, 8000, 16000
-]])
+    4000, 8000, 16000, 32000,
+    4000, 8000, 16000, 32000,
+    4000, 8000, 16000, 32000,
+    4000, 8000, 16000, 32000
+] * 10])
 @pytest.mark.parametrize("mean_output_tokens", [[
-    1000, 1000, 1000,
-    1000, 1000, 1000,
-    1000, 1000, 1000,
-    1000, 1000, 1000
-]])
+    1000, 1000, 1000, 1000,
+    1000, 1000, 1000, 1000,
+    1000, 1000, 1000, 1000,
+    1000, 1000, 1000, 1000
+] * 10])
 @pytest.mark.parametrize("max_num_completed_requests", [[
-    1, 1, 1,
-    8, 8, 8,
-    16, 16, 16,
-    24, 24, 24
-]])
+    1, 1, 1, 1,
+    8, 8, 8, 8,
+    16, 16, 16, 16,
+    24, 24, 24, 24
+] * 10])
 @pytest.mark.parametrize("concurrent_requests", [[
-    1, 1, 1,
-    8, 8, 8,
-    16, 16, 16,
-    24, 24, 24
-]])
+    1, 1, 1, 1,
+    8, 8, 8, 8,
+    16, 16, 16, 16,
+    24, 24, 24, 24
+] * 10])
 @pytest.mark.parametrize("additional_sampling_params", [[
-    "{}", "{}", "{}",
-    "{}", "{}", "{}",
-    "{}", "{}", "{}",
-    "{}", "{}", "{}"
-]])
+    "{}", "{}", "{}", "{}",
+    "{}", "{}", "{}", "{}",
+    "{}", "{}", "{}", "{}",
+    "{}", "{}", "{}", "{}"
+] * 10])
 @pytest.mark.parametrize("hit_rate", [[
-    80, 80, 80,
-    80, 80, 80,
-    80, 80, 80,
-    80, 80, 80
-]])
-@pytest.mark.feature("uc_performance_test_80_1")
+    100, 100, 100, 100,
+    100, 100, 100, 100,
+    100, 100, 100, 100,
+    100, 100, 100, 100
+] * 10])
+@pytest.mark.feature("uc_performance_test_100_10")
 @export_vars
 def test_performance(
     mean_input_tokens,

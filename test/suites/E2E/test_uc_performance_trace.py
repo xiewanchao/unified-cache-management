@@ -5,8 +5,8 @@ from common.llmperf.run_inference import inference_results
 
 @pytest.mark.parametrize("mean_input_tokens", [[16000, 16000]])
 @pytest.mark.parametrize("mean_output_tokens", [[1000, 1000]])
-@pytest.mark.parametrize("max_num_completed_requests", [[1, 8]])
-@pytest.mark.parametrize("concurrent_requests", [[1, 8]])
+@pytest.mark.parametrize("max_num_completed_requests", [[8, 8]])
+@pytest.mark.parametrize("concurrent_requests", [[8, 8]])
 @pytest.mark.parametrize("additional_sampling_params", [["{}", "{}"]])
 @pytest.mark.parametrize("hit_rate", [[80, 80]])
 @pytest.mark.feature("uc_performance_test_trace")

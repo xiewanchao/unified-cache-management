@@ -2,43 +2,25 @@ import pytest
 from common.capture_utils import export_vars
 from common.llmperf.run_inference import inference_results
 
-
+num = 1
 @pytest.mark.parametrize("mean_input_tokens", [[
-    32000,
-    32000,
-    32000,
-    32000
-]])
+    16000
+]*num])
 @pytest.mark.parametrize("mean_output_tokens", [[
-    1000,
-    1000,
-    1000,
     1000
-]])
+]*num])
 @pytest.mark.parametrize("max_num_completed_requests", [[
-    1,
-    8,
-    16,
-    24
-]])
+    8
+]*num])
 @pytest.mark.parametrize("concurrent_requests", [[
-    1,
-    8,
-    16,
-    24
-]])
+    8
+]*num])
 @pytest.mark.parametrize("additional_sampling_params", [[
-    "{}",
-    "{}",
-    "{}",
     "{}"
-]])
+]*num])
 @pytest.mark.parametrize("hit_rate", [[
-    0,
-    0,
-    0,
-    0
-]])
+    80
+]*num])
 @pytest.mark.feature("uc_performance_test_80_2")
 @export_vars
 def test_performance(
