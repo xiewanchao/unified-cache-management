@@ -27,7 +27,7 @@ scenario_ids = [f"in_{s[0]}-out_{s[1]}-con_{s[3]}" for s in perf_scenarios]
 
 
 @pytest.mark.stage(2)
-@pytest.mark.feature("uc_performance_test")
+@pytest.mark.feature("uc_performance_test_80")
 @pytest.mark.parametrize(
     "in_tokens, out_tokens, max_req, concurrent, sampling, hit_rate",
     perf_scenarios,

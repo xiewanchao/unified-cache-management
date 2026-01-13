@@ -169,3 +169,30 @@ def reset_prefill_cache(env, server_url):
             )
     except Exception as e:
         print(f"[ERROR] Exception in resetting prefix cache: {e}")
+
+def flush_cache(env, server_url):
+    """
+    prefix cache / HBM
+    Param：
+        env
+        server_url
+    """
+    reset_url = f"{server_url}/flush_cache"
+    print(f"[INFO] Resetting prefix cache: {reset_url}")
+    try:
+        result = subprocess.run(
+            ["curl", "-X", "POST", reset_url, "-s", "-f"],
+            env=env,
+            check=False,
+            capture_output=True,
+            text=True,
+            timeout=10,
+        )
+        if result.returncode == 0:
+            print("[INFO] Prefix cache successfully reset")
+        else:
+            print(
+                f"[ERROR] Unsuccessfully reset prefix cache，error code: {result.returncode}"
+            )
+    except Exception as e:
+        print(f"[ERROR] Exception in resetting prefix cache: {e}")

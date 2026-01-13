@@ -9,7 +9,7 @@ reports:
 
 database:
   backup: "results/"
-  enabled: true
+  enabled: false
   host: "127.0.0.1"
   port: 5432
   name: "ucm_test"
@@ -26,7 +26,7 @@ models:
 # LLM Connection Configuration
 llm_connection:
   model: ""
-  server_url: ""
+  server_url: "http://127.0.0.1:30000"
   tokenizer_path: ""
   stream: true    # stream output
   ignore_eos: true    # Ignore the returned terminator
